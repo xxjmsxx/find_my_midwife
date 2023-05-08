@@ -1,0 +1,55 @@
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<div class="container">
+  <% if current_user.is_midwife? %>
+    <div class="inner-card" id="midwife-card" style="margin-top: 20px;margin-bottom: 60px;">
+  <% else %>
+    <div class="inner-card" id="mom-card" style="margin-top: 20px; padding-top: 5px; margin-bottom: 60px;">
+  <% end %>
+      <% if current_user.is_midwife? %>
+        <div class="midwife-info-card">
+      <% else %>
+        <div class="mom-info-card">
+      <% end %>
+        <%= cl_image_tag @midwife.photo.key, class:"extra-large-avatar center mt-2"%>
+        <p style="padding-top: 20px;"><i class="fa fa-user" style="color: #FFCAC2"></i> <strong><%= @midwife.user.first_name %> <%= @midwife.user.last_name %></strong></p>
+        <p></p>
+        <p><i class="fa-regular fa-calendar-days" style="color: #FFCAC2"></i>  Available: <%= @midwife.availability.strftime("%d/%m/%Y")%></p>
+        <p><i class="fa-solid fa-star" style="color: #FFCAC2"></i> <%= @midwife.speciality%> - <%= @midwife.years_experience %> years</p>
+        <p style="text-align: justify;"> <%= @midwife.bio %></p>
+
+      <% if current_user.is_midwife && current_user.midwife = @midwife %>
+          <button type="button" class="btn btn-accept" data-bs-toggle="modal" data-bs-target="#profile">
+              Edit Profile
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit profile</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <%= simple_form_for(@midwife) do |f| %>
+                    <%= f.select :speciality, Midwife::SPECIALITIES%>
+                    <%= f.input :years_experience , class: 'btn btn-flat' %>
+                    <%= f.input :availability, as: :date, html5: true, class: 'btn btn-flat' %>
+                    <%= f.input :photo, as: :file, class: 'btn btn-flat' %>
+                    <%= f.submit class: "btn btn-outline-info" %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+      <% else %>
+        <%= link_to 'Send Request', midwife_bookings_path(@midwife),  data: {turbo_method: :post}, class: 'btn btn-blue', style:"justify-content: left;width: 100%;" %>
+        <%= link_to search_path, class: 'btn-ghost-blue' do %>
+        <div class="d-flex align-items-center" style="margin-top: 20px;">
+          <i class="fa-solid fa-arrow-left pe-2"></i>
+            Back
+        </div>
+        <% end %>
+      <% end %>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<div>
+  <div class="index-header" style="margin-left: -70px;">
+    <div>
+      <h1 style="font-weight: 300;">Hello,</h1>
+      <h1 style="font-weight: 500;color: #A3C7D6;"><%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %>! </h1>
+    </div>
+  </div>
+  <div>
+    <div class="container">
+      <div class="outer-card mb-3" id="mom-card">
+        <div class="background-card mb-0 pb-2">
+          <h2>Upcoming Appointment</h2>
+        </div>
+        <% if !current_user.mom.upcoming_appointment.nil? %>
+          <div class="inner-card pt-0">
+            <div class="name-avatar">
+              <%= cl_image_tag current_user.mom.upcoming_appointment.booking.midwife.photo.key , class: "avatar-blueb"%>
+              <h4><%= current_user.mom.upcoming_appointment.booking.midwife.user.first_name %>
+                  <%= current_user.mom.upcoming_appointment.booking.midwife.user.last_name %> -
+                  <%= current_user.mom.upcoming_appointment.title %></h4>
+            </div>
+            <div class="border"></div>
+            <div class="info-card">
+              <h5><i class="fa fa-clock" style="color: #A3C7D6"></i> <%= current_user.mom.upcoming_appointment.start_time.strftime("%A, %d %b %Y %l:%M %p") %> </h5>
+            </div>
+          </div>
+        <% else %>
+          <p>You have no upcoming appointment</p>
+        <% end %>
+      </div>
+    </div>
+      <div class="container">
+      <div class="outer-card" id="mom-card" style="margin-bottom: 70px;">
+        <div class="background-card" style="padding: 16px 16px 8px;">
+          <h2>My Midwife</h2>
+        </div>
+        <% if current_user.mom.recent_booking %>
+          <div class="inner-card pt-0">
+            <div class="name-avatar">
+              <%= cl_image_tag current_user.mom.recent_booking.midwife.photo.key, class: "avatar-blueb"%>
+              <h4><%= current_user.mom.recent_booking.midwife.user.first_name %> <%= current_user.mom.recent_booking.midwife.user.last_name %></h4>
+            </div>
+            <div class="border"></div>
+            <div class="info-card">
+              <h5><i class="fa-solid fa-star" style="color: #A3C7D6"></i> <%= current_user.mom.recent_booking.midwife.speciality %> </h5>
+              <h5><i class="fa-solid fa-hourglass-half" style="color: #A3C7D6"></i> Experience: <%= current_user.mom.recent_booking.midwife.years_experience %> years</h5>
+            </div>
+          </div>
+        <% else %>
+          <p><%= link_to "Find My Midwife", search_path, class:"btn btn-accept" %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

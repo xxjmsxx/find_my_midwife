@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+      <div class="new_appointment_form">
+      <h2>Schedule Appointment</h2>
+        <%= simple_form_for [@booking, @appointment] do |f| %>
+          <%= f.input :title, label:"Type", placeholder:"appointment type", class: 'btn btn-flat' %>
+          <%= f.input :start_time, label:"Date & Time", as: :datetime, html5: true, class: 'btn btn-flat'%>
+          <div class="d-flex align-items-center justify-content-between">
+            <%= link_to bookings_path, class:"btn-ghost" do %>
+            <div class="d-flex align-items-center">
+            <i class="fa-solid fa-arrow-left pe-2"></i>
+              Back
+            </div>
+            <% end %>
+            <%= f.submit "Book", class: 'btn btn-accept' %>
+          </div>
+        <% end %>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>

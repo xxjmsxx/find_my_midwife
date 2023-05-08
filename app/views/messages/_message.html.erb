@@ -1,0 +1,12 @@
+<% if current_user == message.user %>
+  <div class="message-bubble-user" id="message <%= message.id %>">
+    <p><%= message.content %></p>
+    <small class="time-message-sent"><i><%= message.created_at.strftime("%H:%M") %></i></small>
+  </div>
+<% else %>
+  <div class="message-bubble" id="message <%= message.id %>">
+    <small><strong><%= message.user.first_name %></strong></small>
+    <p><%= message.content %></p>
+    <small class="time-message-sent"><i><%= message.created_at.strftime("%H:%M") %></i></small>
+  </div>
+<% end %>

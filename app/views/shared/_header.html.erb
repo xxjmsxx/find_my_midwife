@@ -1,0 +1,23 @@
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <div class="container-fluid">
+    <%= link_to "#", class: "navbar-brand" do %>
+    <% if current_user.is_midwife? %>
+    <%= image_tag("logopink.png") %>
+    <% else %>
+    <%= image_tag("logoblue.png") %>
+    <% end %>
+    <% end %>
+
+    <div class="" id="navbarSupportedContent">
+      <% if user_signed_in? %>
+        <div id="right-header" class="image-cropper">
+          <% if current_user.is_midwife? %>
+            <%= cl_image_tag current_user.midwife.photo.key, class: "avatar-small"%>
+          <% else %>
+            <%= cl_image_tag current_user.mom.photo.key, class: "avatar-small-blue"%>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

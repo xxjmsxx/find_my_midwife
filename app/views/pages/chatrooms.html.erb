@@ -1,0 +1,65 @@
+<% if current_user.is_midwife? %>
+  <div class="chatroom-index" id="chatroom-midwife">
+    <h1>Chats</h1>
+  </div>
+  <div class="container">
+    <% @bookings.each do |booking| %>
+      <% if booking.messages.empty? %>
+      <% else %>
+        <% if current_user.midwife == booking.midwife %>
+        <div class="chatroom-card">
+          <div>
+            <%= cl_image_tag booking.mom.photo.key , class: "avatar-extra-small"%>
+          </div>
+          <div class="w-100">
+            <div class="chatroom-time">
+              <%= link_to booking_path(booking), class: "text-decoration-none" do %>
+                <div style= "color: #FC9D9D"><%= booking.mom.user.first_name %></div>
+              <% end %>
+              <p>
+                <%= booking.messages.last.created_at.strftime("%H:%M") %>
+              </p>
+            </div>
+            <div>
+              <div>
+                <%= truncate(booking.messages.last.content, length: 30) %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      <% end %>
+    <% end %>
+<% else %>
+  <div class="chatroom-index" id="chatroom-mom">
+    <h1>Chats</h1>
+  </div>
+    <% @bookings.each do |booking| %>
+      <% if booking.messages.empty? %>
+      <% else %>
+        <% if current_user.mom == booking.mom %>
+        <div class="chatroom-card">
+          <div>
+            <%= cl_image_tag booking.midwife.photo.key , class: "avatar-extra-small"%>
+          </div>
+          <div class="w-100">
+            <div class="chatroom-time">
+              <%= link_to booking_path(booking), class: "text-decoration-none" do %>
+                <div style= "color: #A3C7D6"><%= booking.midwife.user.first_name %> </div>
+              <% end %>
+              <p>
+                <%= booking.messages.last.created_at.strftime("%H:%M") %>
+              </p>
+            </div>
+            <div>
+              <div>
+                <%= truncate(booking.messages.last.content, length: 30) %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

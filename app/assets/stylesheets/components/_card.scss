@@ -1,0 +1,167 @@
+#midwife-card {
+  background-color: #ffffff;
+}
+
+
+#mom-card {
+  background-color:#ffffff;
+}
+
+.outer-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 12px;
+  border-radius: 10px;
+  gap: 16px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.outer-card-calendar{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 16px;
+  border-radius: 10px;
+  gap: 16px;
+}
+
+.background-card{
+  display: flex;
+  align-items: top;
+  justify-content: space-between;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.inner-card{
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  align-items:flex-start;
+  justify-content: flex-start;
+  padding: 16px 8px;
+  gap: 8px;
+}
+
+.inner-card-map-index{
+  display: flex;
+  background-color: #F6F8F8;
+  border-radius: 10px;
+  align-items:flex-start;
+  justify-content: flex-start;
+  padding: 16px 8px;
+  gap: 8px;
+}
+
+.inner-card-appointment{
+  display: flex;
+  background-color: #F6F8F8;
+  border-radius: 10px;
+  align-items:flex-start;
+  justify-content: flex-start;
+  padding: 4px 4px;
+  gap: 8px;
+}
+
+.outer-card-appointment{
+  display: flex;
+  flex-direction: column;
+  background-color: #F5C2BD;
+  border-radius: 10px;
+  align-items:flex-start;
+  justify-content: flex-start;
+  padding: 16px 8px;
+  gap: 8px;
+}
+
+.info-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.border{
+  width: 264px;
+  height: 0px;
+  border: 1px solid #DC928D;
+}
+
+.name-avatar {
+  display: flex;
+  justify-content: start;
+  align-items: end;
+  gap: 8px;
+  width: 100%;
+}
+
+.picture-name {
+  display: flex;
+  align-items: center;
+
+  h4 {
+    margin-bottom: 0px;
+    padding-left: 4px;
+  }
+}
+
+.icon{
+  color: #DC928D;
+  font-size: 20px;
+}div
+
+.background-h3 {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-accept {
+  background-color: #FFCAC2;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 0px rgba(122, 122, 122, 0.2);
+  margin-right: 10px;
+}
+
+.btn-deny {
+  border: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 0px rgba(122, 122, 122, 0.2);
+}
+
+.link-pink {
+  color: #FFC4C4;
+}
+
+.btn-ghost {
+  color: #DC928D;
+  text-decoration: none;
+}
+
+.btn-ghost-blue {
+  color: #A3C7D6;
+  text-decoration: none;
+}
+
+.btn-blue {
+  background-color: #A3C7D6;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 0px rgba(122, 122, 122, 0.2);
+  margin-right: 10px;
+  width: fit-content;
+}
+
+.btn-white {
+  border: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 0px rgba(122, 122, 122, 0.2);
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+}

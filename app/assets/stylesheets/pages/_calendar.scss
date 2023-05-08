@@ -1,0 +1,44 @@
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-accent-bg: #f7eeee;
+
+  tr {
+    font-weight: 600;
+  }
+
+
+}
+
+.calendar-heading {
+  justify-content: space-between;
+  display: flex;
+
+  a {
+    font-size: small;
+    color: #F5C2BD;
+    font-weight: bold;
+  }
+}
+
+.day {
+  font-weight: 300;
+}
+
+.has-events {
+  // border-color: #F5C2BD;
+  color: #d36868 !important;
+  font-weight: 700 !important;
+  border: none !important;
+}
+
+.table {
+  th {
+    color:#d36868
+  }
+}
+
+.calendar-title {
+  font-weight: 500 !important;
+  width: 100%;
+  align-items: center !important;
+  margin-bottom: 10px;
+}

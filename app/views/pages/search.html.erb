@@ -1,0 +1,63 @@
+<div class="container" style="margin-bottom:60px;">
+  <% if @midwives.empty? %>
+    <div>
+      <p>There are no midwives currently available</p>
+    </div>
+  <% else %>
+    <button type="button" class="btn btn-blue mt-3" data-bs-toggle="modal" data-bs-target="#filter">
+      <div class="d-flex align-items-center">
+        <div class="pe-2">
+          <i class="fa-solid fa-filter"></i>
+        </div>
+        Filter
+      </div>
+    </button>
+      <div class="modal fade" id="filter" tabindex="-1" aria-labelledby="filter" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Filters</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <%# <div class="modal-body"> %>
+              <%# <strong><p>Speciality</p></strong> %>
+              <div data-controller="filter-midwives">
+                <%= form_tag search_path, { method: :get } do %>
+                  <div class="modal-body">
+                    <strong><p>Speciality</p></strong>
+                    <% Midwife::SPECIALITIES.each do |speciality| %>
+                      <div class="checkboxes">
+                        <%= check_box_tag 'selected_specialities[]', speciality %>
+                        <%= label_tag(speciality) %>
+                      </div>
+                    <% end %>
+                  </div>
+                  <div class="modal-footer">
+                    <%= submit_tag "Search by filter", class: "btn btn-blue" %>
+                    <%# <button type="button" class="btn btn-accept">Search by filters</button> %>
+                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+                  </div>
+                  <%# <div style="display:none;">
+                  <%# submit_tag %>
+                  <%# </div> %>
+                <% end %>
+              </div>
+            <%# </div> %>
+            <%# <div class="modal-footer">
+              <button type="button" class="btn btn-accept" data-bs-dismiss="modal">Search by filters</button>
+              <button type="button" class="btn btn-deny" data-bs-dismiss="modal">Close</button>
+            </div> %>
+          </div>
+        </div>
+      </div>
+    <% @midwives.each do |midwife| %>
+      <div class="outer-card mt-3" data-filter-midwives-target="list">
+        <div class="inner-card" id="mom-card">
+          <h5 class="card-title"> <%= cl_image_tag midwife.photo.key, class: "avatar-large"%> <strong><%= midwife.user.first_name %> <%= midwife.user.last_name %></h5></strong>
+          <p class="card-text" style="padding-top: 5px;"><strong>Speciality: </strong><%= midwife.speciality %> <br> <strong>Experience: </strong><%= midwife.years_experience %> years</p>
+          <p><%= link_to 'Send Request', midwife_bookings_path(midwife),  data: {turbo_method: :post}, class: 'btn btn-blue' %>     <%= link_to 'View Profile', midwife_path(midwife) , class: "btn btn-blue" %></p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

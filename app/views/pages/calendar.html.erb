@@ -1,0 +1,30 @@
+<div class="container mt-5 text-center" style="margin-top: 30px !important;">
+  <%= month_calendar(events: @appointments) do |date, appointment| %>
+      <%= date.day %>
+  <% end %>
+  <div class="card-container">
+    <div class="outer-card-calendar align-items-center mb-5" id="midwife-card">
+      <% @moms.each do |mom| %>
+          <% mom.bookings.each do |booking| %>
+            <% unless booking.appointments.empty? || booking.mom != mom || booking.midwife != current_user.midwife%>
+              <div class="outer-card-appointment w-100">
+              <%= link_to mom_path(mom), class: "text-decoration-none text-dark", style:"display: flex; align-items: center;" do %>
+                <%= cl_image_tag mom.photo.key, class: "avatar-small" %>
+                <h4 style="padding-left:10px;"><%= mom.user.first_name %> <%= mom.user.last_name %></h4>
+              <% end %>
+              <% booking.appointments.each do |appointment| %>
+                <div class="inner-card-appointment" style="width:100%; margin-top:8px;">
+                  <div>
+                  <p class="text-start mb-2" style="margin-left: 5px;"><strong><%= appointment.title %></strong></p>
+                  <p style="margin-left: 5px; margin-bottom: 4px;"><%= appointment.start_time.strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  </div>
+                </div>
+              <% end %>
+              </div>
+              <div class="border"></div>
+            <% end %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

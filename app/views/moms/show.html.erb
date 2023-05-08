@@ -1,0 +1,93 @@
+<div class="container" style="margin-bottom:60px;">
+    <% if current_user.is_midwife? %>
+      <div class="midwife-info-card" style="margin-top: 20px;">
+        <%= cl_image_tag @mom.photo.key, class:"extra-large-avatar-blue center mt-2"%>
+        <p style="margin-top: 20px;"><i class="fa fa-user" style="color:#FC9D9D"></i>  <strong><%= @mom.user.first_name %> <%= @mom.user.last_name %></strong></p>
+        <p><i class="fa fa-location-dot" style="color:#FC9D9D"></i>   <%= @mom.user.address %></p>
+        <p><i class="fa fa-phone" style="color:#FC9D9D"></i>   <%= @mom.phone %></p>
+        <p> <%= @mom.bio %></p>
+    <% else %>
+      <div class="mom-info-card" style="margin-top: 20px;">
+        <%= cl_image_tag @mom.photo.key, class:"extra-large-avatar-blue center mt-2"%>
+        <p style="margin-top: 20px"><i class="fa fa-user" style="color: #A3C7D6"></i>  <strong><%= @mom.user.first_name %> <%= @mom.user.last_name %></strong></p>
+        <p><i class="fa fa-location-dot" style="color: #A3C7D6"></i>   <%= @mom.user.address %></p>
+        <p><i class="fa fa-phone" style="color: #A3C7D6"></i>   <%= @mom.phone %></p>
+        <p> <%= @mom.bio %></p>
+    <% end %>
+      <div style="width: 100%; height: 150px; border: 1px; border-style: solid;"
+        data-controller="map"
+        data-map-markers-value="<%= @markers.to_json %>"
+        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+      </div>
+  </div>
+  <% if current_user.mom == @mom %>
+    <% if !current_user.is_midwife && current_user.mom= @mom%>
+          <button type="button" class="btn btn-blue" data-bs-toggle="modal" data-bs-target="#profile" style="margin-left: 10px; margin-top: 10px;">
+              Edit Profile
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit profile</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <%= simple_form_for(@mom) do |f| %>
+                    <%= f.input :phone, class: 'btn btn-flat' %>
+                    <%= f.input :due_date, as: :date, html5: true, class: 'btn btn-flat' %>
+                    <%= f.input :photo, as: :file, class: 'btn btn-flat' %>
+                    <%= f.submit class: "btn btn-outline-info" %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% end %>
+  <% end %>
+    <% if current_user.midwife %>
+        <% current_user.midwife.bookings.each do |booking| %>
+          <% if @mom == booking.mom && booking.confirmed? %>
+            <%= simple_form_for([@mom, @note]) do |f| %>
+              <%= f.input :content, label: 'Notes', placeholder: 'Add your notes here!' %>
+              <%= f.submit class: "btn btn-accept" %>
+            <% end %>
+            <% @mom.notes.each do |note| %>
+            <div class="inner-card" style="border:1px; padding: 5px 5px; margin-top: 20px;">
+              <p><%= note.content %></p>
+              <div class="icons-side">
+                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#noteModal<%= note.id %>">
+                  <i class="fa-regular fa-pen-to-square" style="color:#FC9D9D"></i>
+                </button>
+                <%= link_to note_path(note), data: {turbo_method: :delete, confirm: "Are you sure you want to remove this note?"} do %>
+                <i class="fa-regular fa-trash-can" style="color:#FC9D9D"></i>
+                <% end %>
+              </div>
+            </div>
+            </div>
+
+
+              <!-- Modal -->
+              <div class="modal fade" id="noteModal<%= note.id %>" tabindex="-1" aria-labelledby="noteModalLabel<%= note.id %>" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Note</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <%= simple_form_for(note) do |f| %>
+                        <%= f.input :content, label: 'Notes', placeholder: 'Add your notes here!' %>
+                        <%= f.submit class: "btn btn-outline-info" %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+</div>

@@ -1,0 +1,66 @@
+<div>
+  <div class="index-header" style="margin-left: -70px;">
+    <div>
+      <h1 style="font-weight: 300;">Hello, </h1>
+      <h1 style="font-weight: 500;color: #FC9D9D;"><%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %>!</h1>
+    </div>
+  </div>
+  <div>
+    <div class="container">
+      <div class="outer-card mb-3 pb-0" id="midwife-card">
+        <div class="background-card background-h3 pb-0">
+          <h2>Upcoming Appointment</h2>
+          <%= link_to calendar_path, class: "link-pink" do %>
+            <h3 style="font-weight: bold">See all</h3>
+          <% end %>
+        </div>
+        <% if !current_user.midwife.upcoming_appointment.nil? %>
+          <div class="inner-card pt-0">
+              <div class="name-avatar">
+                <%= cl_image_tag current_user.midwife.upcoming_appointment.booking.mom.photo.key , class: "avatar"%>
+                <h4><%= current_user.midwife.upcoming_appointment.booking.mom.user.first_name %> <%= current_user.midwife.upcoming_appointment.booking.mom.user.last_name %>: <%= current_user.midwife.upcoming_appointment.title %></h4>
+              </div>
+              <div class="border"></div>
+              <div class="info-card">
+                <h5><i class="fa fa-clock" style="color:#FC9D9D"></i> <%= current_user.midwife.upcoming_appointment.start_time.strftime("%A, %d %b %Y %l:%M %p") %> </h5>
+                <h5><i class="fa fa-location-dot" style="color:#FC9D9D"></i>  <%= current_user.midwife.upcoming_appointment.booking.mom.user.address %> </h5>
+              </div>
+              <div style="width: 100%; height: 200px;"
+              data-controller="map"
+              data-map-markers-value="<%= @markers.to_json %>"
+              data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <p>You have no upcoming appointment</p>
+        <% end %>
+      </div>
+    </div>
+      <div class="container pb-5">
+      <div class="outer-card mb-4" id="midwife-card">
+        <div class="background-card pb-0">
+          <h2>New Requests</h2>
+        </div>
+        <% if !current_user.midwife.new_requests.nil? %>
+          <div class="inner-card pt-0 pb-0">
+            <div class="name-avatar">
+              <%= cl_image_tag current_user.midwife.new_requests.mom.photo.key , class: "avatar"%>
+              <h4><%= current_user.midwife.new_requests.mom.user.first_name %> <%= current_user.midwife.new_requests.mom.user.last_name %></h4>
+            </div>
+            <div class="border"></div>
+            <div class="info-card">
+              <h5><i class="fa fa-solid fa-baby" style="color:#FC9D9D"></i> Due Date: <%= current_user.midwife.new_requests.mom.due_date %> </h5>
+              <h5><i class="fa fa-location-dot" style="color:#FC9D9D"></i>  <%= current_user.midwife.new_requests.mom.user.address%> </h5>
+              <div class="d-flex justify-content-between mt-3">
+              <p><%= link_to 'Accept', accepted_path(current_user.midwife.new_requests), data: { turbo_method: :patch}, class: "btn btn-accept"%>   <%= link_to 'Deny', cancelled_path(current_user.midwife.new_requests), data: { turbo_method: :patch}, class: "btn btn-deny" %></p>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <p>no current requests</p>
+        <% end %>
+      </div>
+    </div>
+    </div>
+</div>
