@@ -15,7 +15,7 @@ It is also a great worktool for midwifes because it allows them to have everythi
 ## Features
 
 - Search function with filter by midwife specialty
-- Sing in using Devise
+- Sign in using Devise
 - Appointment location using Geocoding and Mapbox
 - Calendar with upcoming appointments and patient cards
 - Chat using Action Cable and Stimulus 
