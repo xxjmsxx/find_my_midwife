@@ -18,7 +18,7 @@
   <body>
     <%= render "shared/flashes" %>
     <div class="wrapper">
-      <% unless current_page? new_user_session_path %>
+      <% unless devise_controller? %>
         <div class="header">
           <%= render "shared/header" %>
         </div>
@@ -26,7 +26,10 @@
       <div class="content">
         <%= yield %>
       </div>
-      <%= render "shared/navbar" %>
+      <% unless current_page? new_user_registration_path && new_mom_midwife_path %>
+          <%= render "shared/navbar" %>
+      <% end %>
+
     </div>
   </body>
 </html>
